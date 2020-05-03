@@ -57,6 +57,11 @@ public class ProductoController {
 		return new ResponseEntity<Producto>(obj, HttpStatus.OK);
 	}
 	
+	/*
+	 * Funcionalidad que permite, por medio del método HTTP DELETE, eliminar fisicamente un producto existente
+	 * Para usarlo se debe añadir el id del producto al final de la url del la forma http://localhost/productos/4
+	 * En el ejemplo, 4 es el id de producto y se ubica al final luego de una pleca
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id) throws Exception{
 		Producto producto = service.leerPorId(id);

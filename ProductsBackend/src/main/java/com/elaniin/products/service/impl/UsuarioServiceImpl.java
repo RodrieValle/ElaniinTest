@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.elaniin.products.model.Usuario;
@@ -19,13 +22,18 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService{
 	@Autowired	
 	private IUsuarioRepo repo;
 	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
 	@Override
 	public Usuario registrar(Usuario obj) {
+		obj.setPassword(bcrypt.encode(obj.getPassword()));
 		return repo.save(obj);
 	}
 
 	@Override
-	public Usuario modificar(Usuario obj) {		
+	public Usuario modificar(Usuario obj) {
+		obj.setPassword(bcrypt.encode(obj.getPassword()));
 		return repo.save(obj);
 	}
 
@@ -44,6 +52,11 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService{
 	public boolean eliminar(Integer id) {		
 		repo.deleteById(id);
 		return true;
+	}
+	
+	@Override
+	public Page<Usuario> listarPageable(Pageable pageable) {
+		return repo.findAll(pageable);
 	}
 
 	@Override
