@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.elaniin.products.exception.ModelNotFoundException;
 import com.elaniin.products.model.Usuario;
 import com.elaniin.products.service.IUsuarioService;
 
@@ -66,7 +67,7 @@ public class UsuarioController {
 	public ResponseEntity<Object> eliminar(@PathVariable("id") Integer id) throws Exception{
 		Usuario usuario = service.leerPorId(id);
 		if(usuario.getIdUsuario() == null) {
-			throw new Exception("ID NO ENCONTRADO " + id);
+			throw new ModelNotFoundException("ID NO ENCONTRADO " + id);
 		}
 		service.eliminar(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);

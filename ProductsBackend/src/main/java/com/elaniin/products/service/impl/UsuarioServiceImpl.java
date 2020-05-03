@@ -1,11 +1,14 @@
 package com.elaniin.products.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -61,8 +64,17 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		//Para el inicio de sesión se usa el email, por lo que la búsqueda entiende el email como username
+		Usuario usuario = repo.findOneByEmail(username);
+		
+		if(usuario == null) {
+			throw new UsernameNotFoundException("Usuario no existe");
+		}
+		
+		List<GrantedAuthority> roles = new ArrayList<>();
+		UserDetails ud = new User(usuario.getEmail(), usuario.getPassword(), roles);
+		return ud;
 	}
 
 }

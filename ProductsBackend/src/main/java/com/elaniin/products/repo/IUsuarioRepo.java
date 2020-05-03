@@ -6,5 +6,5 @@ import com.elaniin.products.model.Usuario;
 
 public interface IUsuarioRepo extends JpaRepository<Usuario, Integer> {
 
-
+	Usuario findOneByEmail(String email);
 }
