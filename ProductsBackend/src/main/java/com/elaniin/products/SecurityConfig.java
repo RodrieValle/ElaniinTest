@@ -1,7 +1,5 @@
 package com.elaniin.products;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -37,9 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired	
 	private UserDetailsService userDetailsService;
-		
-	@Autowired
-	private DataSource dataSource;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
@@ -48,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
-	}	
+	}
 	
 	@Bean
 	@Override
@@ -84,7 +79,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public TokenStore tokenStore() {
 		return new JwtTokenStore(accessTokenConverter());
-		//return new JdbcTokenStore(this.dataSource);
 	}
 	
 	@Bean
