@@ -29,7 +29,19 @@ public class UsuarioServiceImpl implements IUsuarioService, UserDetailsService{
 	private BCryptPasswordEncoder bcrypt;
 	
 	@Override
-	public Usuario registrar(Usuario obj) {
+	public Usuario registrar(Usuario obj) throws Exception {
+		Usuario usuarioExistente = null;
+		//Se valida que el email ingresado no exista
+		usuarioExistente = repo.findOneByEmail(obj.getEmail());
+		if(usuarioExistente != null) {
+			throw new Exception("Ya existe usuario con ese email");
+		}
+		//Se valida que el username ingresado no exista
+		usuarioExistente = repo.findOneByUsername(obj.getUsername());
+		if(usuarioExistente != null) {
+			throw new Exception("Ya existe usuario con ese nombre de usuario");
+		}
+		//Se realiza encriptación de contraseña
 		obj.setPassword(bcrypt.encode(obj.getPassword()));
 		return repo.save(obj);
 	}

@@ -31,7 +31,7 @@ public class ProductoController {
 	 * Funcionalidad que permite, por medio del método HTTP POST, guardar un nuevo producto
 	 */
 	@PostMapping
-	public ResponseEntity<Producto> registrar(@Valid @RequestBody Producto producto) {
+	public ResponseEntity<Producto> registrar(@Valid @RequestBody Producto producto) throws Exception {
 		Producto obj = service.registrar(producto);
 		return new ResponseEntity<Producto>(obj, HttpStatus.CREATED);
 	}

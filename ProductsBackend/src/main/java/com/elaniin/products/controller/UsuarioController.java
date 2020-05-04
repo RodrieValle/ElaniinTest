@@ -31,7 +31,7 @@ public class UsuarioController {
 	 * Funcionalidad que permite, por medio del método HTTP POST, guardar un nuevo usuario
 	 */
 	@PostMapping
-	public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> registrar(@Valid @RequestBody Usuario usuario) throws Exception {
 		Usuario obj = service.registrar(usuario);
 		return new ResponseEntity<Usuario>(obj, HttpStatus.CREATED);
 	}
