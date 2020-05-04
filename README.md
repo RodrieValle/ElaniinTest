@@ -2,7 +2,7 @@
 
 Este proyecto fue realizado como una prueba para la plaza de backend developer para Elannin
 
-El proyecto que se encuentra alojado en este repositorio consta de una API Rest para realizar operaciones basicas o CRUD sobre Productos y Usuarios. 
+El proyecto que se encuentra alojado en este repositorio consta de una API Rest para realizar operaciones básicas o CRUD sobre Productos y Usuarios. 
 
 ## Pasos para la instalación del código
 
