@@ -1,5 +1,8 @@
 package com.elaniin.products.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.elaniin.products.dto.FiltroConsultaDTO;
 import com.elaniin.products.exception.ModelNotFoundException;
 import com.elaniin.products.model.Producto;
 import com.elaniin.products.service.IProductoService;
@@ -71,6 +75,19 @@ public class ProductoController {
 		}
 		service.eliminar(id);
 		return new ResponseEntity<Object>(HttpStatus.OK);
+	}
+	
+	/*
+	 * Funcionalidad que permite, por medio del método HTTP POST, realizar una búsqueda personalizada
+	 * La búsqueda puede realizarse por medio de dos valores, el nombre del producto y el SKU
+	 */
+	@PostMapping("/buscar")
+	public ResponseEntity<List<Producto>> buscar(@RequestBody FiltroConsultaDTO filtro) {
+		List<Producto> productos = new ArrayList<>();
+		if (filtro != null) {
+			productos = service.buscar(filtro);
+		}
+		return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
 	}
 	
 	
