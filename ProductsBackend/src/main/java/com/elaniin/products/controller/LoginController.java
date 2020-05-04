@@ -65,7 +65,7 @@ public class LoginController {
 				mail.setSubject("RESTABLECER CONTRASEÑA - Elannin Products");
 				
 				Map<String, Object> model = new HashMap<>();
-				String url = "http://" + tomcatServerIp + ":8080/login/restablecer/verificar/" + token.getToken();
+				String url = "http://" + tomcatServerIp + "/login/restablecer/verificar/" + token.getToken();
 				model.put("user", token.getUser().getNombre());
 				model.put("resetUrl", url);
 				mail.setModel(model);
